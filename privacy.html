@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>TaskTogether — Privacy</title>
+    <link rel="icon" href="logo.svg" type="image/svg+xml" />
+    <meta name="theme-color" content="#026aa7" />
+    <link rel="stylesheet" href="style.css" />
+    <script defer src="app.js"></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        const header = document.getElementById("header");
+        TaskTogether.renderHeader(header, { sloganOnly: true });
+      });
+    </script>
+  </head>
+  <body>
+    <header id="header" class="header"></header>
+    <main class="container">
+      <div class="card" style="max-width: 820px; margin: 0 auto">
+        <h1 style="margin: 0 0 8px">Privacy Policy</h1>
+        <div class="helper" style="margin-bottom: 12px">Last updated: <span id="upd"></span></div>
+        <p>
+          We respect your privacy. This placeholder page describes how your data may be handled in this demo application. No data is sent to a server; information is stored in your browser using localStorage only.
+        </p>
+        <p>
+          If you have questions, please reach out via the Contact page.
+        </p>
+      </div>
+    </main>
+    <script>
+      document.addEventListener("DOMContentLoaded", ()=>{
+        const el = document.getElementById("upd");
+        if (el) el.textContent = new Date().toLocaleDateString();
+      });
+    </script>
+  </body>
+</html>

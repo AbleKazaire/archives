@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>TaskTogether — Group</title>
+    <link rel="icon" href="logo.svg" type="image/svg+xml" />
+    <meta name="theme-color" content="#026aa7" />
+    <link rel="stylesheet" href="style.css" />
+    <script defer src="app.js"></script>
+    <script>
+      function q(k) {
+        return new URLSearchParams(location.search).get(k);
+      }
+      document.addEventListener("DOMContentLoaded", () => {
+        TaskTogether.ensureSeed();
+        const header = document.getElementById("header");
+        TaskTogether.renderHeader(header, { sloganOnly: true });
+        const currentUser = TaskTogether.getCurrentUser();
+        const isLeader = currentUser && currentUser.role === "leader";
+
+        const groupId = q("group");
+        const state = TaskTogether.loadState();
+        const group = state.groups[groupId];
+        if (!group) {
+          alert("Group not found");
+          location.href = "dashboard.html";
+          return;
+        }
+
+        // Make current groupId available to global handlers (e.g., delete confirm)
+        window.__currentGroupId = groupId;
+
+        document.getElementById("groupName").textContent = group.name;
+
+        // Projects UI
+        const projectSelect = document.getElementById("projectSelect");
+        function renderProjects() {
+          projectSelect.innerHTML = "";
+          (TaskTogether.loadState().groups[groupId].projects || []).forEach(
+            (p) => {
+              const opt = document.createElement("option");
+              opt.value = p.id;
+              opt.textContent = p.name;
+              projectSelect.appendChild(opt);
+            }
+          );
+        }
+        renderProjects();
+        const addProjectBtn = document.getElementById("addProject");
+        if (isLeader) {
+          addProjectBtn.addEventListener("click", () => {
+            const name = prompt("Project name (e.g., Website Redesign)");
+            if (!name) return;
+            TaskTogether.createProject(groupId, name);
+            renderProjects();
+          });
+        } else {
+          addProjectBtn.style.display = "none";
+        }
+
+        function renderTasks() {
+          const tbody = document.getElementById("tbody");
+          tbody.innerHTML = "";
+          const s = TaskTogether.loadState();
+          const g = s.groups[groupId];
+          const currentProjectId =
+            projectSelect.value || g.projects[0]?.id || null;
+          g.tasks
+            .filter(
+              (t) => !currentProjectId || t.projectId === currentProjectId
+            )
+            .forEach((t) => {
+              const tr = document.createElement("tr");
+              const assignee = t.assigneeId
+                ? s.users[t.assigneeId]?.name || "—"
+                : "—";
+              const statusClass =
+                t.status === "done" || t.done
+                  ? "done"
+                  : t.status === "progress"
+                  ? "progress"
+                  : "todo";
+              tr.innerHTML = `
+            <td>${t.name} ${isLeader ? `<button class="btn ghost" data-del="${t.id}">Delete</button>` : ""}</td>
+            <td>${assignee}</td>
+            <td><span class="status ${statusClass}">${
+                t.done
+                  ? "Done"
+                  : t.status === "progress"
+                  ? "In Progress"
+                  : t.status === "done"
+                  ? "Done"
+                  : "To Do"
+              }</span></td>
+            <td><input type="checkbox" ${t.done ? "checked" : ""} data-id="${t.id}" ${isLeader ? "" : "disabled"}/></td>
+          `;
+              tbody.appendChild(tr);
+            });
+        }
+
+        renderTasks();
+
+        // Expose renderer for global delete confirm handler
+        window.__renderTasks = renderTasks;
+
+        projectSelect.addEventListener("change", renderTasks);
+
+        document.getElementById("tbody").addEventListener("change", (e) => {
+          if (!isLeader) return; // members cannot toggle completion
+          const id = e.target.getAttribute("data-id");
+          if (!id) return;
+          TaskTogether.updateTask(groupId, id, {
+            done: e.target.checked,
+            status: e.target.checked ? "done" : "todo",
+          });
+          renderTasks();
+        });
+
+        document.getElementById("tbody").addEventListener("click", (e) => {
+          if (!isLeader) return; // members cannot delete
+          const delId = e.target.getAttribute("data-del");
+          if (!delId) return;
+          showDeleteConfirm(delId);
+        });
+
+        const addTaskBtn = document.getElementById("addTask");
+        if (isLeader) {
+          addTaskBtn.addEventListener("click", () => {
+            const projectId = projectSelect.value || "";
+            location.href = `addtask.html?group=${groupId}&project=${projectId}`;
+          });
+        } else {
+          addTaskBtn.style.display = "none";
+        }
+
+        // Chat
+        const chatList = document.getElementById("chatList");
+        // Simple escape to prevent HTML injection in chat
+        function esc(s) {
+          return String(s)
+            .replaceAll("&", "&amp;")
+            .replaceAll("<", "&lt;")
+            .replaceAll(">", "&gt;")
+            .replaceAll('"', "&quot;")
+            .replaceAll("'", "&#39;");
+        }
+        function renderChat() {
+          const s = TaskTogether.loadState();
+          const g = s.groups[groupId];
+          chatList.innerHTML = "";
+          g.chat.slice(-200).forEach((m) => {
+            const di = document.createElement("div");
+            di.className = "chat-item";
+            const user = s.users[m.userId];
+            const safeName = esc(user ? user.name : "User");
+            const safeText = esc(m.text);
+            di.innerHTML = `
+            <div class="meta">${safeName} • ${TaskTogether.formatTime(
+              m.ts
+            )}</div>
+            <div>${safeText}</div>
+          `;
+            chatList.appendChild(di);
+          });
+          chatList.scrollTop = chatList.scrollHeight;
+        }
+        renderChat();
+
+        const channel = TaskTogether.getChatChannel(groupId);
+        channel.onmessage = (ev) => {
+          if (ev.data?.type === "chat") renderChat();
+        };
+
+        document.getElementById("chatForm").addEventListener("submit", (e) => {
+          e.preventDefault();
+          const input = document.getElementById("chatInput");
+          const text = input.value.trim();
+          if (!text) return;
+          const current = TaskTogether.getCurrentUser();
+          TaskTogether.postChatMessage(groupId, current.id, text);
+          input.value = "";
+          renderChat();
+        });
+      });
+    </script>
+  </head>
+  <body>
+    <header id="header" class="header black"></header>
+    <main class="container">
+      <div class="page-split">
+        <div>
+          <div
+            class="card"
+            style="
+              margin-bottom: 16px;
+              display: flex;
+              align-items: center;
+              justify-content: space-between;
+            "
+          >
+            <h2 id="groupName" style="margin: 0"></h2>
+            <div>
+              <select
+                id="projectSelect"
+                class="btn ghost"
+                style="margin-right: 8px"
+              ></select>
+              <button class="btn ghost" id="addProject">+ Add Project</button>
+              <button class="btn primary" id="addTask">Add Task</button>
+              <a class="btn ghost" href="dashboard.html">Back to Dashboard</a>
+            </div>
+          </div>
+          <div class="card">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>Task Name</th>
+                  <th>Assigned To</th>
+                  <th>Status</th>
+                  <th>Complete</th>
+                </tr>
+              </thead>
+              <tbody id="tbody"></tbody>
+            </table>
+          </div>
+        </div>
+        <div>
+          <div class="chat">
+            <div class="chat-header">Group Chat</div>
+            <div id="chatList" class="chat-list"></div>
+            <form id="chatForm" class="chat-input">
+              <input
+                id="chatInput"
+                type="text"
+                placeholder="Type a message..."
+              />
+              <button class="btn primary" type="submit">Send</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <script>
+      // Delete confirmation dialog
+      function showDeleteConfirm(taskId) {
+        const dialog = document.createElement("div");
+        dialog.className = "confirm-dialog";
+        dialog.innerHTML = `
+          <div class="confirm-content">
+            <h3 style="margin: 0 0 12px">Delete Task</h3>
+            <p style="margin: 0 0 16px; color: var(--muted)">Are you sure you want to delete this task? This action cannot be undone.</p>
+            <div class="confirm-actions">
+              <button class="btn ghost" onclick="this.closest('.confirm-dialog').remove()">Cancel</button>
+              <button class="btn danger" onclick="confirmDelete('${taskId}')">Delete</button>
+            </div>
+          </div>
+        `;
+        document.body.appendChild(dialog);
+      }
+
+      function confirmDelete(taskId) {
+        const gid = window.__currentGroupId;
+        TaskTogether.deleteTask(gid, taskId);
+        document.querySelector(".confirm-dialog").remove();
+        if (typeof window.__renderTasks === "function") {
+          window.__renderTasks();
+        }
+      }
+    </script>
+  </body>
+</html>

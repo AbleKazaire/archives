@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>TaskTogether — Contact</title>
+    <link rel="icon" href="logo.svg" type="image/svg+xml" />
+    <meta name="theme-color" content="#026aa7" />
+    <link rel="stylesheet" href="style.css" />
+    <script defer src="app.js"></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        TaskTogether.renderHeader(document.getElementById("header"), { sloganOnly: true });
+      });
+    </script>
+  </head>
+  <body>
+    <header id="header" class="header"></header>
+    <main class="container">
+      <div class="card" style="max-width: 820px; margin: 0 auto">
+        <h1 style="margin: 0 0 8px">Contact us</h1>
+        <p class="helper">We'd love to hear from you. This is a demo page.</p>
+        <div class="field">
+          <label>Name</label>
+          <input type="text" placeholder="Your name" />
+        </div>
+        <div class="field">
+          <label>Email</label>
+          <input type="email" placeholder="you@example.com" />
+        </div>
+        <div class="field">
+          <label>Message</label>
+          <textarea rows="4" placeholder="How can we help?"></textarea>
+        </div>
+        <button class="btn primary">Send</button>
+        <div class="helper" style="margin-top:8px">This form does not submit anywhere in this demo.</div>
+      </div>
+    </main>
+  </body>
+</html>

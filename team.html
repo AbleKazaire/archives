@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>TaskTogether — Our Team</title>
+    <link rel="icon" href="logo.svg" type="image/svg+xml" />
+    <meta name="theme-color" content="#026aa7" />
+    <link rel="stylesheet" href="style.css" />
+    <script defer src="app.js"></script>
+    <style>
+      /* Page-specific styling so we don't touch global CSS */
+      .team-hero {
+        position: relative;
+        overflow: hidden;
+        border-radius: 14px;
+        padding: 28px;
+        background: linear-gradient(180deg, rgba(2,106,167,0.08), rgba(2,106,167,0.03));
+        box-shadow: 0 8px 22px rgba(2,106,167,0.08);
+      }
+      .team-hero::before {
+        content: "";
+        position: absolute; inset: -10% -10% auto -10%;
+        height: 70%;
+        background: url('logo.svg') center/contain no-repeat;
+        opacity: 0.06;
+        transform: translateY(-12px);
+        pointer-events: none;
+      }
+      .team-hero .watermark {
+        position: absolute; right: -10px; bottom: -14px;
+        font-weight: 900; font-size: 72px; letter-spacing: 1px;
+        color: #026aa7; opacity: 0.06; user-select: none; pointer-events: none;
+        text-transform: capitalize;
+      }
+      .team-grid {
+        display: grid; gap: 12px; margin-top: 14px;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      }
+      .team-card { border: 1px solid #e6eef6; border-radius: 12px; padding: 14px; background: #fff; }
+      .team-card h3 { margin: 0 0 6px; }
+      .team-card p { margin: 0; color: var(--muted); }
+      .pill { display: inline-block; padding: 3px 8px; border-radius: 999px; background: #eef7fd; color: #026aa7; font-weight: 600; font-size: 12px; }
+    </style>
+    <script>
+      document.addEventListener('DOMContentLoaded', () => {
+        TaskTogether.ensureSeed();
+        const header = document.getElementById('header');
+        TaskTogether.renderHeader(header, { sloganOnly: true });
+      });
+    </script>
+  </head>
+  <body>
+    <header id="header" class="header maroon"></header>
+    <main class="container" style="max-width: 1000px">
+      <div class="team-hero">
+        <span class="pill">Meet the people behind TaskTogether</span>
+        <h1 style="margin: 8px 0 10px">Our Team</h1>
+        <p class="helper" style="margin: 0 0 12px">
+          We’re a small, cross‑functional crew building tools that make task
+          management feel effortless. We believe in clarity, kindness, and
+          shipping fast.
+        </p>
+        <div class="watermark">TaskTogether</div>
+      </div>
+
+      <div class="grid" style="margin-top: 16px">
+        <div class="card">
+          <h2 class="ink" style="margin-top: 0">How we work</h2>
+          <ul style="margin: 6px 0 0 16px">
+            <li><strong>Focus</strong>: we remove noise so teams can move forward.</li>
+            <li><strong>Momentum</strong>: small wins compound—ship, learn, repeat.</li>
+            <li><strong>Care</strong>: thoughtful defaults, responsive UI, and accessibility.</li>
+            <li><strong>Trust</strong>: clear ownership and honest feedback.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="team-grid">
+        <div class="team-card">
+          <h3>Leadership</h3>
+          <p>Guides product direction, aligns teams, and keeps our mission sharp.</p>
+        </div>
+        <div class="team-card">
+          <h3>Product</h3>
+          <p>Turns messy problems into simple flows and specs you’ll actually enjoy using.</p>
+        </div>
+        <div class="team-card">
+          <h3>Engineering</h3>
+          <p>Builds reliable, fast interfaces with pragmatic architectures and tests.</p>
+        </div>
+        <div class="team-card">
+          <h3>Design</h3>
+          <p>Crafts clean visuals, consistent patterns, and accessible components.</p>
+        </div>
+        <div class="team-card">
+          <h3>Community</h3>
+          <p>Listens, supports, and shares best practices from teams like yours.</p>
+        </div>
+      </div>
+
+      <div class="card" style="margin-top: 16px">
+        <h2 class="ink" style="margin-top: 0">What we’re building next</h2>
+        <p class="helper" style="margin: 6px 0 0">
+          Smarter planning, richer notifications, and deeper integrations—while
+          keeping TaskTogether fast and simple. Have ideas? We’d love to hear them.
+        </p>
+      </div>
+    </main>
+  </body>
+</html>

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>About — TaskTogether</title>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="icon" href="logo.svg" type="image/svg+xml" />
+    <meta name="theme-color" content="#026aa7" />
+    <script defer src="app.js"></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        TaskTogether.ensureSeed();
+        const header = document.getElementById("header");
+        TaskTogether.renderHeader(header, { sloganOnly: true });
+      });
+    </script>
+  </head>
+  <body>
+    <header id="header" class="header maroon"></header>
+    <main class="container">
+      <div class="card" style="max-width: 800px; margin: 0 auto">
+        <h1 style="margin-top: 0">About TaskTogether</h1>
+        <p class="helper">
+          TaskTogether helps teams and individuals capture tasks, organize work
+          on MY PROJECTS, and chat in real time—right in the browser.
+        </p>
+        <p>
+          Built with simplicity in mind, TaskTogether brings together your
+          to‑dos, MY PROJECTS, and conversations so you can focus on what matters. No
+          installs. No sign‑ups required to explore the demo. When you’re ready,
+          create an account in seconds and keep working.
+        </p>
+        <h3 id="team" class="ink">Our principles</h3>
+        <ul>
+          <li>Clarity over complexity—features should be obvious.</li>
+          <li>Speed matters—every action should feel instant.</li>
+          <li>Collaboration first—tasks and chat live together.</li>
+        </ul>
+      </div>
+    </main>
+  </body>
+</html>

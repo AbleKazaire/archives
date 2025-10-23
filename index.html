@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>TaskTogether — Welcome</title>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="icon" href="logo.svg" type="image/svg+xml" />
+    <meta name="theme-color" content="#026aa7" />
+    <script defer src="app.js"></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        const header = document.getElementById("header");
+        TaskTogether.renderHeader(header, { public: true, simplePublic: true });
+      });
+    </script>
+  </head>
+  <body>
+    <header id="header" class="header"></header>
+    <main>
+      <section id="about" class="hero hero--split">
+        <div class="hero-inner">
+          <div class="hero-copy">
+            <div
+              class="brand"
+              style="gap: 10px; margin-bottom: 8px; align-items: baseline"
+            >
+              <img src="logo.svg" alt="TaskTogether logo" class="logo-img" />
+              <span style="font-weight: 700">TaskTogether</span>
+              <span class="accent-pill">New</span>
+            </div>
+            <h1 class="hero-title">
+              Capture, organize, and tackle your to‑dos from anywhere.
+            </h1>
+            <p class="hero-sub">
+              Escape the clutter and chaos. Unleash your productivity with
+              TaskTogether.
+            </p>
+            <div class="hero-form">
+              <a class="btn primary" href="login.html#signup">Sign up - It’s free</a>
+            </div>
+            <div class="helper">
+              By entering my email, I acknowledge the TaskTogether Privacy
+              Policy.
+            </div>
+            <div style="margin-top: 10px">
+              <a class="btn ghost" href="#explore">Explore without logging in</a>
+            </div>
+          </div>
+          <div class="hero-art">
+            <div class="card" style="max-width: 440px">
+              <img
+                src="logo.svg"
+                alt="Preview"
+                style="width: 64px; height: 64px; opacity: 0.9"
+              />
+              <h3 style="margin: 8px 0 4px">Your productivity powerhouse</h3>
+              <div class="helper">
+                Projects, tasks, and chat keep your work moving.
+              </div>
+              <div style="display: grid; gap: 8px; margin-top: 10px">
+                <div class="status todo">Inbox • Capture ideas fast</div>
+                <div class="status progress">Projects • Move work forward</div>
+                <div class="status done">Planner • Hit your goals</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="features" class="features features--bg">
+        <div class="container">
+          <h2 class="features-title">Your productivity powerhouse</h2>
+          <div class="features-grid">
+            <div class="card">
+              <h3>Inbox</h3>
+              <p class="helper">
+                When it’s on your mind, it goes in your Inbox. Capture to‑dos
+                from anywhere, anytime.And properly plan what is best to be done and at what time!
+              </p>
+            </div>
+            <div class="task">
+              <h3>MY PROJECTS</h3>
+              <p class="helper">
+                Map tasks on the virtual platforms to visualize progress and stay on
+                track.
+              </p>
+            </div>
+            <div class="task">
+              <h3>Planner</h3>
+              <p class="helper">
+                Plan your week and crush deadlines with clear priorities.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="explore" class="features" style="padding-top: 0">
+        <div class="container">
+          <h2 class="features-title">Explore without logging in</h2>
+          <div class="card" style="margin-bottom: 12px">
+            <div class="field" style="margin: 0">
+              <label for="publicSearch">Search docs and pages</label>
+              <input id="publicSearch" type="text" placeholder="Try: features, teams, education, inbox..." />
+            </div>
+            <div class="helper" style="margin-top: 6px">
+              Filter public pages and resources available without an account.
+            </div>
+          </div>
+          <div id="publicResults" class="grid">
+            <a class="card explore-card" href="about.html" data-tags="about company overview team story">
+              <h3 class="title" style="margin: 0 0 6px">
+                <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+                About TaskTogether
+              </h3>
+              <div class="helper">What we do and how TaskTogether helps you get organized.</div>
+            </a>
+            <a class="card explore-card" href="features.html#boards" data-tags="features MY PROJECTS kanban tasks">
+              <h3 class="title" style="margin: 0 0 6px">
+                <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="7" height="18"/><rect x="14" y="3" width="7" height="10"/></svg>
+                Features: MY PROJECTS
+              </h3>
+              <div class="helper">Visualize work on kanban-style MY PROJECTS.</div>
+            </a>
+            <a class="card explore-card" href="features.html#inbox" data-tags="features inbox capture ideas">
+              <h3 class="title" style="margin: 0 0 6px">
+                <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 13h-6a4 4 0 0 1-8 0H2"/><path d="M5 3h14a2 2 0 0 1 2 2v8l-4 6H7l-4-6V5a2 2 0 0 1 2-2z"/></svg>
+                Features: Inbox
+              </h3>
+              <div class="helper">Capture tasks, notes, and ideas from anywhere.</div>
+            </a>
+            <a class="card explore-card" href="features.html#chat" data-tags="features chat collaboration messaging">
+              <h3 class="title" style="margin: 0 0 6px">
+                <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15a4 4 0 0 1-4 4H7l-4 4V7a4 4 0 0 1 4-4h10a4 4 0 0 1 4 4z"/></svg>
+                Features: Chat
+              </h3>
+              <div class="helper">Stay in sync with lightweight, real-time chat.</div>
+            </a>
+            <a class="card explore-card" href="solutions.html#personal" data-tags="solutions personal productivity planning">
+              <h3 class="title" style="margin: 0 0 6px">
+                <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+                Solutions: Personal
+              </h3>
+              <div class="helper">Plan your week and build habits that stick.</div>
+            </a>
+            <a class="card explore-card" href="solutions.html#teams" data-tags="solutions teams collaboration projects">
+              <h3 class="title" style="margin: 0 0 6px">
+                <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M17 21v-2a4 4 0 0 0-4-4H7a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                Solutions: Teams
+              </h3>
+              <div class="helper">Coordinate tasks and projects with your team.</div>
+            </a>
+            <a class="card explore-card" href="solutions.html#education" data-tags="solutions education students teachers classroom">
+              <h3 class="title" style="margin: 0 0 6px">
+                <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 10L12 4 2 10l10 6 10-6z"/><path d="M6 12v5a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2v-5"/></svg>
+                Solutions: Education
+              </h3>
+              <div class="helper">Organize coursework, assignments, and group work.</div>
+            </a>
+          </div>
+        </div>
+      </section>
+    </main>
+    <!-- Site footer: Trello-inspired, tailored to TaskTogether -->
+    <footer class="site-footer">
+      <div class="container footer-top">
+        <div class="footer-grid">
+          <div class="footer-col footer-brand">
+            <div style="display: flex; align-items: center; gap: 10px">
+              <img
+                src="logo.svg"
+                alt="TaskTogether"
+                style="width: 36px; height: 36px"
+              />
+              <div>
+                <strong>TaskTogether</strong>
+                <div class="helper" style="margin-top: 6px">
+                  Projects, tasks, and chat to help teams plan and do work
+                  together.
+                </div>
+              </div>
+            </div>
+            <nav
+              style="margin-top: 14px; display: flex; gap: 8px; flex-wrap: wrap"
+            >
+              <a href="about.html">About</a>
+              <a href="features.html">Features</a>
+              <a href="solutions.html">Solutions</a>
+            </nav>
+          </div>
+
+          <div class="footer-col">
+            <h4>Products</h4>
+            <ul>
+              <li><a href="#">Inbox</a></li>
+              <li><a href="#">Projects</a></li>
+              <li><a href="#">Planner</a></li>
+            </ul>
+          </div>
+
+          <div class="footer-col">
+            <h4>Resources</h4>
+            <ul>
+              <li><a href="profile.html">Profile</a></li>
+              <li><a href="notifications.html">Notifications</a></li>
+              <li><a href="group.html">Community</a></li>
+            </ul>
+          </div>
+
+          <div class="footer-col footer-contact">
+            <h4>Company</h4>
+            <ul>
+              <li><a href="index.html">back to home</a></li>
+              <li><a href="login.html">LOGIN NOW</a></li>
+              <li><a href="about.html">About TaskTogether</a></li>
+              <li><a href="contact.html">Contact us</a></li>
+              <li><a href="jobs.html">Jobs</a></li>
+            </ul>
+            <div class="helper" style="margin-top: 8px">
+              Phone: <a href="tel:0772731791">0772731791</a>
+            </div>
+            <div
+              style="
+                margin-top: 12px;
+                display: flex;
+                gap: 8px;
+                align-items: center;
+              "
+            >
+              <div class="social">
+                For more information about team visit our social media handles
+                <a href="#" aria-label="instagram" title="Instagram">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7 2h10a5 5 0 0 1 5 5v10a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5zm0 2a3 3 0 0 0-3 3v10a3 3 0 0 0 3 3h10a3 3 0 0 0 3-3V7a3 3 0 0 0-3-3H7zm5 3.5a5.5 5.5 0 1 1 0 11 5.5 5.5 0 0 1 0-11zm0 2a3.5 3.5 0 1 0 0 7 3.5 3.5 0 0 0 0-7zM18.5 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/></svg>
+                </a>
+                <a href="#" aria-label="facebook" title="Facebook">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M22 12a10 10 0 1 0-11.5 9.9v-7h-2.4V12h2.4V9.8c0-2.4 1.4-3.7 3.6-3.7 1 0 2 .2 2 .2v2.2h-1.1c-1.1 0-1.5.7-1.5 1.4V12h2.6l-.4 2.9h-2.2v7A10 10 0 0 0 22 12z"/></svg>
+                </a>
+                <a href="#" aria-label="twitter" title="Twitter/X">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M3 3l7.4 9.7L3.4 21H6l5.6-6.6L15.8 21H21l-7.7-10.1L20.6 3H18l-5 5.9L9 3H3z"/></svg>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <div
+          class="container"
+          style="
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+          "
+        >
+          <div class="muted">
+            © <span id="year"></span> TaskTogether — Built for teams and
+            individuals.
+          </div>
+          <div class="muted small-links">
+            <a href="privacy.html">Privacy</a>
+            <a href="terms.html">Terms</a>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        // current year
+        const y = document.getElementById("year");
+        if (y) y.textContent = new Date().getFullYear();
+        // public search
+        const list = document.getElementById("publicResults");
+        function filter(q) {
+          const s = (q || "").toLowerCase();
+          list.querySelectorAll(".explore-card").forEach((el) => {
+            const tags = (el.getAttribute("data-tags") || "").toLowerCase();
+            el.style.display = !s || tags.includes(s) ? "block" : "none";
+          });
+        }
+        document.addEventListener("input", (e) => {
+          if (e.target && e.target.id === "publicSearch") filter(e.target.value);
+        });
+      });
+    </script>
+  </body>
+</html>

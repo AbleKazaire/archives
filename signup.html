@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>TaskTogether — Sign Up</title>
+  <link rel="icon" href="logo.svg" type="image/svg+xml" />
+  <meta name="theme-color" content="#026aa7" />
+  <link rel="stylesheet" href="style.css" />
+  <script defer src="app.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const form = document.getElementById("signupForm");
+      form.addEventListener("submit", async (e) => {
+        e.preventDefault();
+        const username = document.getElementById("username").value.trim();
+        const email = document.getElementById("email").value.trim();
+        const password = document.getElementById("password").value;
+        const confirm = document.getElementById("confirmPassword").value;
+        if (!username || !email || !password || !confirm) {
+          showMsg("All fields are required.", true); return;
+        }
+        if (password !== confirm) {
+          showMsg("Passwords do not match.", true); return;
+        }
+        // Call backend signup endpoint
+        const res = await fetch("backend/public/api/signup", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ username, email, password })
+        });
+        const data = await res.json();
+        if (res.ok) {
+          showMsg("Account created! Redirecting to login...", false);
+          setTimeout(() => window.location.href = "login.html", 2000);
+        } else {
+          showMsg(data.error || "Signup failed.", true);
+        }
+      });
+      function showMsg(msg, isError) {
+        const el = document.getElementById("signupMsg");
+        el.textContent = msg;
+        el.style.color = isError ? "#b00" : "#080";
+        el.style.display = "block";
+      }
+      // OAuth button handlers (stubs)
+      document.querySelectorAll('.oauth-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          alert('OAuth login coming soon!');
+        });
+      });
+    });
+  </script>
+  <style>
+    .oauth-btn { margin: 6px 0; width: 100%; font-size: 1rem; }
+    .oauth-google { background: #fff; color: #222; border: 1px solid #ccc; }
+    .oauth-microsoft { background: #f3f3f3; color: #0078d4; border: 1px solid #0078d4; }
+    .oauth-apple { background: #000; color: #fff; border: 1px solid #000; }
+  </style>
+</head>
+<body>
+  <header class="header welcome">
+    <div class="brand welcome-text">Create your TaskTogether account</div>
+  </header>
+  <div class="auth">
+    <div class="left" style="background: linear-gradient(0deg,rgba(255,235,130,0.55),rgba(255,235,130,0.55)),url('https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&w=1600&q=80') center/cover no-repeat;">
+      <div class="illustration">
+        <h1>TaskTogether</h1>
+        <p>Collaborate on tasks with Trello-like simplicity. Chat with your group in real-time across tabs.</p>
+      </div>
+    </div>
+    <div class="right">
+      <div class="panel card auth-panel">
+        <div class="title auth-title">
+          <div class="headline">Sign Up</div>
+          <div class="subtitle">Create your account to get started</div>
+        </div>
+        <form id="signupForm">
+          <div id="signupMsg" style="display:none;margin-bottom:10px;"></div>
+          <div class="field">
+            <label>Username</label>
+            <input id="username" type="text" placeholder="Username" required />
+          </div>
+          <div class="field">
+            <label>Email</label>
+            <input id="email" type="email" placeholder="Email" required />
+          </div>
+          <div class="field">
+            <label>Password</label>
+            <input id="password" type="password" placeholder="Password" required />
+          </div>
+          <div class="field">
+            <label>Confirm Password</label>
+            <input id="confirmPassword" type="password" placeholder="Confirm Password" required />
+          </div>
+          <button type="submit" class="btn btn-primary" style="width:100%;margin-top:10px;">Sign Up</button>
+        </form>
+        <div style="margin:16px 0 8px 0;text-align:center;">or sign up with</div>
+        <button class="oauth-btn oauth-google">Continue with Google</button>
+        <button class="oauth-btn oauth-microsoft">Continue with Microsoft</button>
+        <button class="oauth-btn oauth-apple">Continue with Apple</button>
+        <div style="margin-top:18px;text-align:center;">
+          Already have an account? <a href="login.html">Login</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
